@@ -1,0 +1,64 @@
+<html>
+
+<head>
+  <link href="./index.css" rel="stylesheet" />
+</head>
+
+
+<body>
+  <header>
+    <a href='sobre.html'>
+      <p> Sobre </p>
+    </a>
+    <a href='referencias.html'>
+      <p> </p> Referencias </p>
+    </a>
+    <a href='api.html'>
+      <p> API Taxa de Cambio </p>
+    </a>
+  </header>
+  <h1>Linguagens para Front End </h1>
+  <p> No mercado de tecnologia, possuimos diversas maneiras de se fazer um projeto, e na sua grande maioria, podemos
+    utilizar o que mais convém para nós. Porém, cada linguagem tem suas vantagens e desvantagens. Abaixo você poderá
+    escolher uma linguagem e saber mais sobre ela.
+  </p>
+  <form method="post" action="sobre.html">
+    <select id="sel_lang">
+      <option>Escolha uma Linguagem</option>
+      <option>HTML</option>
+      <option>CSS</option>
+      <option>JavaScript</option>
+      <option>Ruby</option>
+      <option>Angular</option>
+    </select>
+
+    <div id="div_cont">
+
+
+    </div>
+  </form>
+</body>
+<script>
+  //encontrar o elementto select
+  const sel_lang = document.getElementById("sel_lang")
+  const div_cont = document.getElementById("div_cont")
+
+
+
+  sel_lang.addEventListener("change", () => {
+    let URL = 'Dados/' + sel_lang.value.toLowerCase() + '.txt'
+    fetch(URL).then(response => response.text())
+      .then((data) => {
+        let escolha = document.createElement("p")
+        escolha.textContent = data
+        console.log(data)
+        div_cont.innerHTML = ' '
+        div_cont.appendChild(escolha)
+
+        console.log("Adicionado com sucesso!!")
+      })
+
+  })
+</script>
+
+</html>

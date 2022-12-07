@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <link href="./sobre.css" rel="stylesheet" />
+</head>
+
+<body>
+  <header>
+    <a href='index.html'>
+      <p> Inicio </p>
+    </a>
+    <a href='sobre.html'>
+      <p> Sobre </p>
+    </a>
+    <a href='referencias.html'>
+      <p> </p> Referencias </p>
+    </a>
+    <a href='api.html'>
+      <p> API Taxa de Cambio </p>
+    </a>
+  </header>
+  <div id="txtAbout">
+
+  </div>
+
+  <script>
+    function sobre() { //função para pegar os dados do about me, alocar em uma variavel e mostrar ela em sequencia manipulando o JSON.
+      const txtAbout = document.getElementById("txtAbout")
+
+      fetch('./Dados/aboutme.json').then((response) =>
+        response.json())
+        .then(data => {
+          console.log(data)
+
+          let nome = document.createElement("p")
+          let sobrenome = document.createElement("p")
+          let genero = document.createElement("p")
+          let idade = document.createElement("p")
+          let curso = document.createElement("p")
+          let local = document.createElement("p")
+
+          nome.innerText = `Nome:  ${data.nome} ${data.sobrenome}`
+          genero.innerText = `Genero:  ${data.genero}`
+          idade.innerText = `Idade:  ${data.idade}`
+          curso.innerText = `Curso:  ${data.curso}`
+          local.innerText = `Local de Ensino:  ${data.local}`
+
+          txtAbout.appendChild(nome)
+          txtAbout.appendChild(genero)
+          txtAbout.appendChild(idade)
+          txtAbout.appendChild(curso)
+          txtAbout.appendChild(local)
+
+        })
+    }
+    sobre()
+  </script>
+</body>
+
+</html>

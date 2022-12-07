@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+  <link href="./api.css" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <header>
+    <a href='index.html'>
+      <p> Inicio </p>
+    </a>
+    <a href='sobre.html'>
+      <p> Sobre </p>
+    </a>
+    <a href='referencias.html'>
+      <p> </p> Referencias </p>
+    </a>
+    <a href='api.html'>
+      <p> API Taxa de Cambio </p>
+    </a>
+    <a href='https://www.okanebox.com.br/como-usar/api-ptax-moedas-cambios/'>
+      <p> Explicação API </p>
+    </a>
+  </header>
+
+  <div>
+    Insira o simbolo da moeda <input type="text" name="simbolo"> <br><br>
+    Insira a data de inicio (ano/mes/dia) <input type="text" name="data_inicio"> <br><br>
+    Insira a data de fim (ano/mes/dia) <input type="text" name="data_fim"> <br><br>
+
+    <button onclick="fazerconsulta()">
+      Consulta
+    </button>
+    <p id='conteudo_api'>
+
+
+    </p>
+  </div>
+</body>
+
+<script>
+
+
+  function fazerconsulta() { //função que pega os dados e supostamente joga no fetch, utilizando os dados para jogar na API como indicadado. Se funcionasse...
+    let simbolo = document.querySelector('[name="simbolo"]').value;
+    let inicio = document.querySelector('[name="data_inicio"]').value;
+    let fim = document.querySelector('[name="data_fim"]').value;
+
+    let conteudo = document.querySelector('#conteudo_api')
+
+    fetch(`https://www.okanebox.com.br/api/cambioptax/hist/${simbolo}/${inicio}/${fim}/`)
+      .then((response) => response.json())
+      .then((data) => {
+
+
+        console.log(data)
+        data.map((e, i) => {
+          let cot_compra = document.createElement('p');
+          let cot_venda = document.createElement('p');
+          let simbolo = document.createElement('p');
+          let data2 = document.createElement('p');
+          cot_compra.innerHTML = `Cotação de Compra ${e.COTACAO_COMPRA}`;
+          cot_venda.innerHTML = `Cotação de Venda ${e.COTACAO_VENDA}`;
+          simbolo.innerHTML = `Simbolo da Moeda ${e.SIMBOLO}`;
+          data2.innerHTML = `Data ${e.DATA}`;
+          conteudo.appendChild(cot_compra);
+          conteudo.appendChild(cot_venda);
+          conteudo.appendChild(simbolo);
+          conteudo.appendChild(data2);
+        })
+      })
+
+  }
+</script>
+
+</html>
